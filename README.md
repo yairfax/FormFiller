@@ -42,7 +42,7 @@ Each element of action is object that describes an action the browser should tak
     "actions": [
         {"sleep": 3},
         {"click": "submitButton"},
-        {"data": ...}
+        {"data": ["..."]}
     ]
 ```
 
