@@ -33,7 +33,7 @@ def run_datapoint(data_point: DataPoint, driver: WebDriver):
         case FieldType.ID:
             driver.find_element_by_id(data_point.field).send_keys(data_point.value)
         case _:
-            raise TypeError("unknown field type: %s" % data_point)
+            raise TypeError(f"unknown field type: {data_point}")
 
 def run_dataentry_action(data: list[DataPoint], driver: WebDriver):
     match data:
@@ -43,7 +43,7 @@ def run_dataentry_action(data: list[DataPoint], driver: WebDriver):
         case []:
             return
         case _:
-            raise TypeError("unrecognized data entry item: %s" % data)
+            raise TypeError(f"unrecognized data entry item: {data}")
 
 
 def run_click_action(action: ClickAction, driver: WebDriver):
@@ -63,6 +63,8 @@ def run_action(action: Action, driver: WebDriver):
             run_click_action(action, driver)
         case SleepAction() as action:
             run_sleep_action(action, driver)
+        case _:
+            raise TypeError(f"unrecognized action: {action}")
 
 def run_actionlist(actions: list[Action], driver: WebDriver):
     match actions:
@@ -72,7 +74,7 @@ def run_actionlist(actions: list[Action], driver: WebDriver):
         case []:
             return
         case _:
-            raise TypeError("unrecognized action in list: %s" % actions)
+            raise TypeError(f"unrecognized action in list: {actions}")
 
 def run(ast: AST):
     options = Options()

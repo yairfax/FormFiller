@@ -10,7 +10,7 @@ def parse_to_ast(data) -> AST:
                 raise TypeError("url cannot be empty")
             return AST(url, parse_actionlist(actions))
         case _:
-            raise TypeError("error parsing to ast: %s" % data)
+            raise TypeError(f"error parsing to ast: {data}")
 
 def parse_actionlist(data) -> list[Action]:
     match data:
@@ -19,7 +19,7 @@ def parse_actionlist(data) -> list[Action]:
         case []:
             return []
         case _:
-            raise TypeError("error in parsing action list: %s" % data)
+            raise TypeError(f"error in parsing action list: {data}")
 
 def parse_action(data) -> Action:
     match data:
@@ -32,7 +32,7 @@ def parse_action(data) -> Action:
         case {"sleep": time}:
             return SleepAction(time)
         case _:
-            raise TypeError("unrecognized action: %s" % data)
+            raise TypeError(f"unrecognized action: {data}")
 
 
 def parse_dataentry(data) -> list[DataPoint]:
@@ -42,7 +42,7 @@ def parse_dataentry(data) -> list[DataPoint]:
         case []:
             return []
         case _:
-            raise TypeError("error in parsing data entry: %s" % data)
+            raise TypeError(f"error in parsing data entry: {data}")
 
 def parse_datapoint(data) -> str:
     match data:
@@ -50,3 +50,5 @@ def parse_datapoint(data) -> str:
             return val
         case {"regex": str(val)}:
             return x.xeger(val)
+        case _:
+            raise TypeError(f"unrecognized data point: {data}")
