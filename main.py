@@ -5,12 +5,12 @@ from run import run
 
 def get_args():
     parser = argparse.ArgumentParser(description="A script that streamlines testing out form-based websites. Please see README.md for the details on the input file")
-    parser.add_argument("--input", "-i", required=True, help="the file describing the form you want to test. See README.md for details")
+    parser.add_argument("--config", "-c", required=True, help="the run config JSON file. See README.md for details")
 
     return parser.parse_args()
 
 def main(args):
-    with open(args.input) as file:
+    with open(args.config) as file:
         raw_json = json.load(file)
 
     ast = parse_to_ast(raw_json)
