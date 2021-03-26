@@ -37,7 +37,7 @@ At the root level, the JSON object should have two fields: `"url"` and `"actions
 }
 ```
 
-Each element of action is object that describes an action the browser should take. There are three actions available, `data`, `click`, and `sleep`. To add an action, add an object with one of those three as a key, and the relevant arguments as its value
+Each element of `"actions"` is an object that describes an action the browser should take. FormFiller supports three actions: `data`, `click`, and `sleep`. Each action takes some arguments, which are described below. To add an action, add an object with an action string as a key, and its relevant arguments as the value.
 ```json
     "actions": [
         {"sleep": 3},
@@ -47,7 +47,7 @@ Each element of action is object that describes an action the browser should tak
 ```
 
 ### `data`
-The data action takes in a list of form field entries as an argument. Each element of the list is another object with two fields, `"name"` or `"id"`, and `"value"`. If the `"name"` key is used, FormFinder will look for a field in the form on the current page with that name. If `"id"` is used it will look for the HTML element with that ID. `"name"` and `"id"` can be interspersed in the same `"data"` list. `"value"` has the text to be inserted into that form field.
+The data action takes in a list of form field entries as an argument, and fills out the corresponding fields on the web page. Each element of the list is another object with two fields, `"name"` or `"id"`, and `"value"`. If the `"name"` key is used, FormFinder will look for a field in the form on the current page with that name. If `"id"` is used it will look for the HTML element with that ID. `"name"` and `"id"` can be interspersed in the same `"data"` list. `"value"` has the text to be inserted into that field.
 ```json
         {"data": [
             {"name": "firstName", "value": "Yair"},
@@ -65,7 +65,7 @@ FormFiller can also generate random values for fields using a regular expression
         ]}
 ```
 
-Note the double backslashes to subvert JSON's character escaping. It is also highly discouraged to use arbitrary length modifiers (e.g. `"a+"`, `"b*"`), since FormFiller will generate arbitrarily long strings.
+Note the double backslashes to subvert JSON's character escaping. It is also highly discouraged to use arbitrary length modifiers (e.g. `"a+"`, `"b*"`) since FormFiller will generate arbitrarily long strings.
 
 ### `sleep`
 The sleep action takes in a number as a parameter, and tells the browser to pause for the given interval before continuing to the next action.
