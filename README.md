@@ -56,7 +56,7 @@ The data action takes in a list of form field entries as an argument, and fills 
         ]}
 ```
 
-FormFiller can also generate random values for fields using a regular expressions as constraints. To generate a random value, instead of supplying a string to `"value"`, supply an object with a field `"regex"`.
+FormFiller can also generate random values for fields using a regular expression as constraints. To generate a random value, instead of supplying a string to `"value"`, supply an object with a field `"regex"`.
 ```json
         {"data": [
             {"name": "firstName", "value": "Yair"},
@@ -65,7 +65,7 @@ FormFiller can also generate random values for fields using a regular expression
         ]}
 ```
 
-Note the double backslashes to subvert JSON's character escaping. It is also highly discouraged to use arbitrary length modifiers (e.g. `"a+"`, `"b*"`) since FormFiller will generate arbitrarily long strings.
+Note the double backslashes to subvert JSON's character escaping. It is also highly discouraged to use arbitrary length modifiers (e.g. `"a+"`, `"b*"`) since FormFiller will generate arbitrarily long strings. If you do want to have an arbitrary number of characters, you can set an upper bound by using brackets (e.g. `"a{0,5}"`, `"b{1,7}"`).
 
 ### `sleep`
 The sleep action takes in a number as a parameter, and tells the browser to pause for the given interval before continuing to the next action.
@@ -74,7 +74,7 @@ The sleep action takes in a number as a parameter, and tells the browser to paus
 ```
 
 ### `click`
-The click action clicks on a button on the form. It takes a parameter of the id of the button to be clicked. Click also takes an optional parameter `"wait"`, which tells FormFiller whether or not to wait for the next page to load before continuing. By default `"wait"` is set to `true`.
+The click action clicks on a button on the form. It takes the id of the button to be clicked as a parameter. Click also takes an optional parameter `"wait"`, which tells FormFiller whether or not to wait for the next page to load before continuing, i.e. if that button triggers a page load or not. By default `"wait"` is set to `true`.
 ```json
         {"click": "submitForm", "wait": false}
 ```
