@@ -39,6 +39,8 @@ def parse_dataentry(data) -> list[DataPoint]:
     match data:
         case [{"name": name, "value": value}, *rest]:
             return [DataPoint(name, parse_datapoint(value), FieldType.NAME)] + parse_dataentry(rest)
+        case [{"id": name, "value": value}, *rest]:
+            return [DataPoint(name, parse_datapoint(value), FieldType.ID)] + parse_dataentry(rest)
         case []:
             return []
         case _:
