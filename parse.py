@@ -25,15 +25,30 @@ def parse_action(data) -> Action:
     match data:
         case {"data": list(points)}:
             return DataEntryAction(parse_dataentry(points))
-        case {"click": str(btn), "wait": bool(wait)}:
-            return ClickAction(btn, wait)
-        case {"click": str(btn)}:
-            return ClickAction(btn, True)
+        case {"click": rest}:
+            return parse_click_action(rest)
         case {"sleep": time}:
             return SleepAction(time)
         case _:
             raise TypeError(f"unrecognized action: {data}")
 
+def parse_click_action(data) -> ClickAction:
+    match data:
+        case {"id": str(btn), **rest}:
+            return ClickAction(btn, parse_wait(rest), FieldType.ID)
+        case {"name": str(btn), **rest}:
+            return ClickAction(btn, parse_wait(rest), FieldType.NAME)
+        case _:
+            raise TypeError(f"error parsing click action: {data}")
+
+def parse_wait(data) -> bool:
+    match data:
+        case {"wait": bool(wait)}:
+            return wait
+        case {}:
+            return True
+        case _:
+            raise TypeError(f"error parsing wait: {data}")        
 
 def parse_dataentry(data) -> list[DataPoint]:
     match data:

@@ -74,7 +74,7 @@ The sleep action takes in a number as a parameter, and tells the browser to paus
 ```
 
 ### `click`
-The click action clicks on a button on the form. It takes the id of the button to be clicked as a parameter. Click also takes an optional parameter `"wait"`, which tells FormFiller whether or not to wait for the next page to load before continuing, i.e. whether that button triggers a page load or not. By default `"wait"` is set to `true`.
+The click action clicks on a button on the form. It takes an object as a parameter with an `"id"` or `"name"` field with the button to be clicked, similar to the data entry action. The object also takes an optional field `"wait"`, which tells FormFiller whether or not to wait for the next page to load before continuing, i.e. whether that button triggers a page load or not. By default `"wait"` is set to `true`.
 ```json
-        {"click": "submitForm", "wait": false}
+        {"click": {"id": "submitForm", "wait": false}}
 ```

@@ -22,6 +22,7 @@ class DataEntryAction(Action):
 class ClickAction(Action):
     btn: str
     wait: bool
+    id_type: FieldType
 
 @dataclass
 class SleepAction(Action):

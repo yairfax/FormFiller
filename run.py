@@ -21,8 +21,7 @@ def link_has_gone_stale(link):
             return True
     return inner_func
 
-def click_and_wait(id, driver: WebDriver):
-    btn = driver.find_element_by_id(id)
+def click_and_wait(btn):
     btn.click()
     wait_for(link_has_gone_stale(btn))
 
@@ -45,12 +44,20 @@ def run_dataentry_action(data: list[DataPoint], driver: WebDriver):
         case _:
             raise TypeError(f"unrecognized data entry item: {data}")
 
+def get_button(action: ClickAction, driver: WebDriver):
+    match action.id_type:
+        case FieldType.ID:
+            return driver.find_element_by_id(action.btn)
+        case FieldType.NAME:
+            return driver.find_element_by_name(action.btn)
+        case _:
+            raise TypeError(f"error getting button: {ClickAction}")
 
 def run_click_action(action: ClickAction, driver: WebDriver):
     if action.wait:
-        click_and_wait(action.btn, driver)
+        click_and_wait(get_button(action, driver))
     else:
-        driver.find_element_by_id(action.btn, driver).click()
+        get_button(action, driver).click()
 
 def run_sleep_action(action: SleepAction, driver: WebDriver):
     sleep(action.time)
