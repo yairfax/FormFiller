@@ -41,7 +41,7 @@ Each element of `"actions"` is an object that describes an action the browser sh
 ```json
     "actions": [
         {"sleep": 3},
-        {"click": "submitButton"},
+        {"click": {"id": "submitButton"}},
         {"data": ["..."]}
     ]
 ```
